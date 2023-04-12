@@ -9,5 +9,6 @@ app.use(express.json());
 app.use(cors());
 
 app.listen(proces.env.PORT, ()=>{
+    // db.sequelize.sync({ alter: true })
     console.log(`server running at port :${process.env.PORT}.....`)
 })
