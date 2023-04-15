@@ -23,7 +23,7 @@ export const LoginForm = () => {
         email: document.getElementById("email").value,
         password: document.getElementById("password").value,
       };
-      const result = await axios.post(process.env.REACT_APP_BASE_URL, data);
+      const result = await axios.post(process.env.REACT_APP_BASE_URL+"/auth/login", data);
 
       document.getElementById("email").value = "";
       document.getElementById("password").value = "";
