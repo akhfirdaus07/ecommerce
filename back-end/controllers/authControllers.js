@@ -26,7 +26,7 @@ module.exports = {
         message: "Register Success",
       });
     } catch (err) {
-        console.log(err)
+      console.log(err);
       res.status(400).send(err);
     }
   },
