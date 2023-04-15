@@ -5,16 +5,14 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
   Heading,
   Text,
-  useColorModeValue,
-  Link,
+  useColorModeValue
 } from "@chakra-ui/react";
-import { useState, useRef } from "react";
+import React, { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -31,11 +29,11 @@ export const RegistrationForm = () => {
         email: document.getElementById("email").value,
         phone: document.getElementById("phone").value,
         storeName: document.getElementById("storeName").value,
-        password: document.getElementById("password").value,
+        password: document.getElementById("password").value
       };
 
       const result = await axios.post(
-        process.env.REACT_APP_BASE_URL + "/auth/register",
+        `${process.env.REACT_APP_BASE_URL}/auth/register`,
         data
       );
 
@@ -49,23 +47,22 @@ export const RegistrationForm = () => {
         icon: "success",
         title: result.data.message,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1500
       });
     } catch (err) {
-      console.log(err);
       if (err.response.data) {
         Swal.fire({
           icon: "error",
           title: err.response.data,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1500
         });
       } else {
         Swal.fire({
           icon: "error",
           title: err.response.data.errors[0].message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1500
         });
       }
     }
@@ -73,21 +70,21 @@ export const RegistrationForm = () => {
 
   return (
     <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
+      minH="100vh"
+      align="center"
+      justify="center"
       bg={useColorModeValue("gray.50", "gray.800")}
     >
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"4xl"} textAlign={"center"}>
+      <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+        <Stack align="center">
+          <Heading fontSize="4xl" textAlign="center">
             Sign up
           </Heading>
         </Stack>
         <Box
-          rounded={"lg"}
+          rounded="lg"
           bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
+          boxShadow="lg"
           p={8}
         >
           <Stack spacing={4}>
@@ -111,11 +108,11 @@ export const RegistrationForm = () => {
               <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input type={showPassword ? "text" : "password"} />
-                <InputRightElement h={"full"}>
+                <InputRightElement h="full">
                   <Button
-                    variant={"ghost"}
+                    variant="ghost"
                     onClick={() =>
-                      setShowPassword((showPassword) => !showPassword)
+                      setShowPassword((show) => !show)
                     }
                   >
                     {showPassword ? <ViewIcon /> : <ViewOffIcon />}
@@ -127,10 +124,10 @@ export const RegistrationForm = () => {
               <Button
                 loadingText="Submitting"
                 size="lg"
-                bg={"blue.400"}
-                color={"white"}
+                bg="blue.400"
+                color="white"
                 _hover={{
-                  bg: "blue.500",
+                  bg: "blue.500"
                 }}
                 onClick={onRegister}
               >
@@ -138,10 +135,10 @@ export const RegistrationForm = () => {
               </Button>
             </Stack>
             <Stack pt={6}>
-              <Text align={"center"}>
-                <Link color={"blue.400"} onClick={() => navigate("/")}>
+              <Text align="center">
+                <Button color="blue.400" onClick={() => navigate("/")}>
                   Back to home
-                </Link>
+                </Button>
               </Text>
             </Stack>
           </Stack>

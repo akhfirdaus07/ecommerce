@@ -6,14 +6,14 @@ import {
   Input,
   Checkbox,
   Stack,
-  Link,
   Button,
   Heading,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import React from "react";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
@@ -21,9 +21,12 @@ export const LoginForm = () => {
     try {
       const data = {
         email: document.getElementById("email").value,
-        password: document.getElementById("password").value,
+        password: document.getElementById("password").value
       };
-      const result = await axios.post(process.env.REACT_APP_BASE_URL+"/auth/login", data);
+      const result = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/auth/login`,
+        data
+      );
 
       document.getElementById("email").value = "";
       document.getElementById("password").value = "";
@@ -32,7 +35,7 @@ export const LoginForm = () => {
         icon: "success",
         title: result.data.message,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1500
       });
 
       localStorage.setItem("token", result.data.token);
@@ -40,22 +43,21 @@ export const LoginForm = () => {
 
       setTimeout(() => {
         navigate("/");
-      }, 1500);
+      }, 100);
     } catch (err) {
-      console.log(err);
       if (err.response.data) {
         Swal.fire({
           icon: "error",
           title: err.response.data,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1500
         });
       } else {
         Swal.fire({
           icon: "error",
           title: err.response.data.errors[0].message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1500
         });
       }
     }
@@ -63,19 +65,19 @@ export const LoginForm = () => {
 
   return (
     <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
+      minH="100vh"
+      align="center"
+      justify="center"
       bg={useColorModeValue("gray.50", "gray.800")}
     >
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in with your account</Heading>
+      <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+        <Stack align="center">
+          <Heading fontSize="4xl">Sign in with your account</Heading>
         </Stack>
         <Box
-          rounded={"lg"}
+          rounded="lg"
           bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
+          boxShadow="lg"
           p={8}
         >
           <Stack spacing={4}>
@@ -90,19 +92,19 @@ export const LoginForm = () => {
             <Stack spacing={10}>
               <Stack
                 direction={{ base: "column", sm: "row" }}
-                align={"start"}
-                justify={"space-between"}
+                align="start"
+                justify="space-between"
               >
                 <Checkbox>Remember me</Checkbox>
-                <Link onClick={() => navigate("/")} color={"blue.400"}>
+                <Button onClick={() => navigate("/")} color="blue.400">
                   Back to home
-                </Link>
+                </Button>
               </Stack>
               <Button
-                bg={"blue.400"}
-                color={"white"}
+                bg="blue.400"
+                color="white"
                 _hover={{
-                  bg: "blue.500",
+                  bg: "blue.500"
                 }}
                 onClick={onLogin}
               >
