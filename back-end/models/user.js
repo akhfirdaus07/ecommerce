@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Profile);
+      User.hasOne(models.UserDetail);
     }
   }
   User.init(
@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
       storeName: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       password: {
         type: DataTypes.STRING,
