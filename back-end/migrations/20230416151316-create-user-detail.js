@@ -32,6 +32,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "users",
+            schema: "schema",
+          },
+          key: "id",
+        },
+        allowNull: false,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

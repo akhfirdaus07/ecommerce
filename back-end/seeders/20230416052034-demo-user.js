@@ -5,6 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert("Users", [
       {
+        id: 1,
         username: "FirstPerson",
         email: "firstperson@gmail.com",
         phone: "0811-1111-1111",
@@ -14,6 +15,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
+        id: 2,
         username: "SecondPerson",
         email: "secondperson@gmail.com",
         phone: "0822-2222-2222",
@@ -23,6 +25,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
+        id: 3,
         username: "ThirdPerson",
         email: "thirdperson@gmail.com",
         phone: "0833-3333-3333",
@@ -32,6 +35,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
+        id: 4,
         username: "FourthPerson",
         email: "fourthperson@gmail.com",
         phone: "0844-4444-4444",
@@ -41,55 +45,11 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
+        id: 5,
         username: "FifthPerson",
         email: "fifthperson@gmail.com",
         phone: "0855-5555-5555",
         storeName: "Fifth Store",
-        password: "Password1.",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        username: "SixthPerson",
-        email: "sixthperson@gmail.com",
-        phone: "0866-6666-6666",
-        storeName: "Sixth Store",
-        password: "Password1.",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        username: "SeventhPerson",
-        email: "seventhperson@gmail.com",
-        phone: "0812-7777-7777",
-        storeName: "Seventh Store",
-        password: "Password1.",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        username: "EighthPerson",
-        email: "eighthperson@gmail.com",
-        phone: "0812-8888-8888",
-        storeName: "Eighth Store",
-        password: "Password1.",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        username: "NinthPerson",
-        email: "ninthperson@gmail.com",
-        phone: "0812-9999-9999",
-        storeName: "Ninth Store",
-        password: "Password1.",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        username: "TenthPerson",
-        email: "tenthperson@gmail.com",
-        phone: "0812-1010-1010",
-        storeName: "Tenth Store",
         password: "Password1.",
         createdAt: new Date(),
         updatedAt: new Date(),
