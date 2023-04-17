@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
       gender: {
         type: DataTypes.ENUM("Male", "Female"),
       },
+      userId: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,

@@ -16,6 +16,6 @@ const { authRouter } = require("./routers");
 app.use("/auth", authRouter);
 
 app.listen(process.env.PORT, () => {
-  // db.sequelize.sync({ alter: true })
+  db.sequelize.sync({ alter: true })
   console.log(`server running at port : ${process.env.PORT}`);
 });
