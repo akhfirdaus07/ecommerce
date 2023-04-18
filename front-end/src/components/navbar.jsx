@@ -31,7 +31,7 @@ export const Navbar = () => {
       h="16"
     >
       <Flex justify="flex-start" align="center" ml="4">
-        <Text as="b" fontSize='3xl'>Tokopakedi!</Text>
+        <Text as="b" fontSize='3xl'>TokoSebelah!</Text>
       </Flex>
       <Flex justify="flex-end" align="center" mr="4">
         {token ? (
@@ -59,7 +59,6 @@ export const Navbar = () => {
               onClick={() => navigate("/login")}
               rounded="full"
               bg="blue.400"
-              color="white"
               _hover={{
                 bg: "blue.500"
               }}
