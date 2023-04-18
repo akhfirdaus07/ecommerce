@@ -83,17 +83,14 @@ export const Products = () => {
             price,
             description,
             image,
-            // createdAt,
-            // updatedAt,
-            sellerId,
-            categoryId
+            User,
+            Category
           }) => (
-            <Center p="4" axis="both">
+            <Center key={id} p="4" axis="both">
               <Card maxW="sm">
                 <CardBody>
                   <Center p="4" axis="both">
                     <Image
-                      key={id}
                       src={image}
                       alt={name}
                       borderRadius="lg"
@@ -102,12 +99,12 @@ export const Products = () => {
                   </Center>
                   <Stack mt="6" spacing="3">
                     <Heading size="md">{name}</Heading>
-                    <Text>Category: {categoryId}</Text>
+                    <Text as="i">Category: {Category.name}</Text>
                     <Text>{description}</Text>
                     <Text color="blue.600" fontSize="2xl">
-                      Rp{price}
+                      Rp{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </Text>
-                    <Text>Seller: {sellerId}</Text>
+                    <Text as="i">Seller: {User.storeName}</Text>
                   </Stack>
                 </CardBody>
                 <Divider />

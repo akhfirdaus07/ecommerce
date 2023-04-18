@@ -4,7 +4,9 @@ const product = db.Product;
 module.exports = {
   home: async (req, res) => {
     try {
-      const data = await product.findAll();
+      const data = await product.findAll({
+        include: { all: true }
+      });
       const offset = JSON.parse(req.query.offset);
       res.status(200).send({
         count: data.length,
