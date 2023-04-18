@@ -31,7 +31,9 @@ export const Navbar = () => {
       h="16"
     >
       <Flex justify="flex-start" align="center" ml="4">
-        <Text as="b" fontSize='3xl'>TokoSebelah!</Text>
+        <Text as="b" fontSize="3xl" color="red.500">
+          TokoSebelah!
+        </Text>
       </Flex>
       <Flex justify="flex-end" align="center" mr="4">
         {token ? (

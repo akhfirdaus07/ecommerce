@@ -1,52 +1,18 @@
-// import {
-//   Flex,
-//   Heading,
-//   Stack,
-//   Text,
-//   useBreakpointValue
-// } from "@chakra-ui/react";
-// import React from "react";
-// import axios from "axios";
-
-// export const Products = () => {
-//   const result = async () => {
-//     await axios.get(`${process.env.REACT_APP_BASE_URL}/home`);
-//   };
-//   const product = result.data.data;
-//   return (
-//     <Stack minH="80vh" direction={{ base: "column", md: "row" }}>
-//       <Flex p={8} flex={1} align="center" justify="center">
-//         <Stack spacing={6} w="full" maxW="lg">
-//           <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
-//             <Text
-//               as="span"
-//               position="relative"
-//               _after={{
-//                 content: "''",
-//                 width: "full",
-//                 height: useBreakpointValue({ base: "20%", md: "30%" }),
-//                 position: "absolute",
-//                 bottom: 1,
-//                 left: 0,
-//                 bg: "blue.400",
-//                 zIndex: -1
-//               }}
-//             >
-//               Product
-//             </Text>
-//             <br />{" "}
-//             <Text color="blue.400" as="span">
-//               List
-//             </Text>{" "}
-//           </Heading>
-//         </Stack>
-//       </Flex>
-//     </Stack>
-//   );
-// };
-
 import React, { useState } from "react";
-import { Grid, Center, Text, Stack, Image } from "@chakra-ui/react";
+import {
+  Grid,
+  Text,
+  Stack,
+  Image,
+  Card,
+  CardBody,
+  Divider,
+  CardFooter,
+  Button,
+  ButtonGroup,
+  Heading,
+  Center
+} from "@chakra-ui/react";
 import {
   Pagination,
   usePagination,
@@ -73,14 +39,6 @@ export const Products = () => {
         setProducts(res.data.results);
       });
   };
-  // const fetchProducts = async (pageSize, offset) => {
-  //   await axios.get(
-  //     `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}`
-  //   )
-  //   .then(async (res) => {
-  //     console.log(res.data);
-  //   });
-  // };
 
   // constants
   const outerLimit = 1;
@@ -102,20 +60,6 @@ export const Products = () => {
 
   fetchProducts(pageSize, offset);
 
-  // effects
-  // useEffect(() => {
-  //   fetchProducts(pageSize, offset).then((res) => {
-  //     // console.log(res);
-  //     setProductsTotal(res);
-  //     setProducts(res);
-  //   });
-  // }, [currentPage, pageSize, offset]);
-
-  // useEffect(() => {
-  //   console.log(products);
-  //   console.log(productsTotal);
-  // }, [products, productsTotal]);
-
   // handlers
   const handlePageChange = (nextPage) => {
     // -> request new data using the page number
@@ -126,8 +70,8 @@ export const Products = () => {
     <Stack>
       <Grid
         gap={3}
-        mt={20}
-        mb={20}
+        mt={10}
+        mb={10}
         px={20}
         templateColumns="repeat(3, 1fr)"
         templateRows="repeat(2, 1fr)"
@@ -139,20 +83,45 @@ export const Products = () => {
             price,
             description,
             image,
-            createdAt,
-            updatedAt,
+            // createdAt,
+            // updatedAt,
             sellerId,
             categoryId
           }) => (
-            <Center key={id} bg="yellow.300" p={4}>
-              <Text>{name}</Text>
-              <Text>Rp{price}</Text>
-              <Text>{description}</Text>
-              <Image boxSize='100px' src={image} />
-              <Text>{createdAt}</Text>
-              <Text>{updatedAt}</Text>
-              <Text>{sellerId}</Text>
-              <Text>{categoryId}</Text>
+            <Center p="4" axis="both">
+              <Card maxW="sm">
+                <CardBody>
+                  <Center p="4" axis="both">
+                    <Image
+                      key={id}
+                      src={image}
+                      alt={name}
+                      borderRadius="lg"
+                      boxSize="200px"
+                    />
+                  </Center>
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">{name}</Heading>
+                    <Text>Category: {categoryId}</Text>
+                    <Text>{description}</Text>
+                    <Text color="blue.600" fontSize="2xl">
+                      Rp{price}
+                    </Text>
+                    <Text>Seller: {sellerId}</Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="blue">
+                      Buy now
+                    </Button>
+                    <Button variant="ghost" colorScheme="blue">
+                      Add to cart
+                    </Button>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
             </Center>
           )
         )}
@@ -179,18 +148,18 @@ export const Products = () => {
           <PaginationPageGroup isInline align="center">
             {pages.map((page) => (
               <PaginationPage
-                w={6}
+                w={10}
                 bg="red.300"
                 key={`pagination_page_${page}`}
                 page={page}
-                fontSize="xs"
+                fontSize="lg"
                 _hover={{
                   bg: "yellow.500"
                 }}
                 _current={{
                   bg: "yellow.300",
-                  fontSize: "xs",
-                  w: 6
+                  fontSize: "lg",
+                  w: 10
                 }}
               />
             ))}
