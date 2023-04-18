@@ -12,10 +12,11 @@ app.get("/", (req, res) => {
   res.send("This is my API");
 });
 
-const { authRouter } = require("./routers");
+const { authRouter,homeRouter } = require("./routers");
 app.use("/auth", authRouter);
+app.use("/home", homeRouter);
 
-app.listen(process.env.PORT, async() => {
+app.listen(process.env.PORT, async () => {
   // db.sequelize.sync({ alter: true });
   console.log(`server running at port : ${process.env.PORT}`);
 });
