@@ -29,39 +29,28 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      categoryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: "Categories",
-            schema: "",
-          },
-          key: "id",
-        },
-        allowNull: false,
-      },
-      sellerId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: "Users",
-            schema: "",
-          },
-          key: "id",
-        },
-        allowNull: false,
-      },
-      logisticId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: "Logistics",
-            schema: "",
-          },
-          key: "id",
-        },
-        allowNull: false,
-      },
+      // categoryId: {
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: {
+      //       tableName: "Categories",
+      //       schema: "",
+      //     },
+      //     key: "id",
+      //   },
+      //   allowNull: false,
+      // },
+      // sellerId: {
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: {
+      //       tableName: "Users",
+      //       schema: "",
+      //     },
+      //     key: "id",
+      //   },
+      //   allowNull: false,
+      // },
     });
   },
   async down(queryInterface, Sequelize) {
