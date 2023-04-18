@@ -11,7 +11,9 @@ import {
   Button,
   ButtonGroup,
   Heading,
-  Center
+  Center,
+  Select,
+  HStack
 } from "@chakra-ui/react";
 import {
   Pagination,
@@ -66,8 +68,27 @@ export const Products = () => {
     setCurrentPage(nextPage);
   };
 
+  const handleSort = (event) => {
+    const sort = event.target.value;
+  };
+
   return (
     <Stack>
+      <HStack spacing="24px" justify="space-evenly" mt={10}>
+        <HStack spacing="24px" >
+          <Text>Sort By</Text>
+          <Select ml={3} 
+          onChange={handleSort} 
+          w={40}>
+            <option value="">Most Relevant</option>
+            <option value="ascendAlpha">Name: A-Z</option>
+            <option value="descendAlpha">Name: A-Z</option>
+            <option value="ascendPrice">Price: Low-High</option>
+            <option value="descendPrice">Price: High-Low</option>
+          </Select>
+        </HStack>
+      </HStack>
+
       <Grid
         gap={3}
         mt={10}
@@ -77,15 +98,7 @@ export const Products = () => {
         templateRows="repeat(2, 1fr)"
       >
         {products?.map(
-          ({
-            id,
-            name,
-            price,
-            description,
-            image,
-            User,
-            Category
-          }) => (
+          ({ id, name, price, description, image, User, Category }) => (
             <Center key={id} p="4" axis="both">
               <Card maxW="sm">
                 <CardBody>
@@ -130,7 +143,7 @@ export const Products = () => {
       >
         <PaginationContainer
           align="center"
-          justify="space-between"
+          justify="space-evenly"
           p={3}
           w="full"
         >
