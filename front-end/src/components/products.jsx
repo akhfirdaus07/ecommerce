@@ -17,7 +17,9 @@ import {
   Heading,
   Center,
   Select,
-  HStack
+  HStack,
+  VStack,
+  Input
 } from "@chakra-ui/react";
 import {
   Pagination,
@@ -91,21 +93,25 @@ export const Products = () => {
 
   return (
     <Stack>
-      <HStack spacing="24px" justify="space-between" mt={10} mr={100} ml={100}>
-        <HStack spacing="24px">
-          <Text>Categories</Text>
-          <Select onChange={(e) => handleFilterChange(e)} w={40}>
-            <option value="default">All</option>
-            {categories.map(
-              ({name}) => (
+      <HStack align="flex-end" justify="space-between" mt={10} mr={100} ml={100}>
+        <VStack align="flex-start">
+          <HStack spacing="35px">
+            <Text>Search</Text>
+            <Input placeholder="Search by Product Name" size="md" />
+          </HStack>
+          <HStack spacing="10px" justify="flex-start">
+            <Text>Categories</Text>
+            <Select onChange={(e) => handleFilterChange(e)} w={40}>
+              <option value="default">All</option>
+              {categories.map(({ name }) => (
                 <option key={name} value={name}>
                   {name}
                 </option>
-              )
-            )}
-          </Select>
-        </HStack>
-        <HStack spacing="24px">
+              ))}
+            </Select>
+          </HStack>
+        </VStack>
+        <HStack>
           <Text>Sort By</Text>
           <Select onChange={(e) => handleSortChange(e)} w={40}>
             <option value="default">Most Relevant</option>
