@@ -38,10 +38,10 @@ export const Products = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  const fetchProducts = async (sort, offset, pageSize, filter) => {
+  const fetchProducts = async (sort, offset, pageSize, filter, search) => {
     await axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}&filter=${filter}`
+        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}&filter=${filter}&search=${search}`
       )
       .then((res) => {
         setProductsTotal(res.data.count);
@@ -53,6 +53,7 @@ export const Products = () => {
   // states
   const [sort, setSort] = useState("default");
   const [filter, setFilter] = useState("default");
+  const [search, setSearch] = useState("");
 
   // constants
   const outerLimit = 1;
@@ -86,10 +87,15 @@ export const Products = () => {
     setCurrentPage(1);
   };
 
+  const handleSearchChange=(e)=>{
+    console.log(e.target.value);
+    setSearch(e.target.value)
+  };
+
   useEffect(() => {
-    fetchProducts(sort, offset, pageSize, filter);
+    fetchProducts(sort, offset, pageSize, filter, search);
     setCurrentPage(currentPage);
-  }, [sort, offset, pageSize, filter, currentPage]);
+  }, [sort, offset, pageSize, filter,search, currentPage]);
 
   return (
     <Stack>
@@ -97,7 +103,7 @@ export const Products = () => {
         <VStack align="flex-start">
           <HStack spacing="35px">
             <Text>Search</Text>
-            <Input placeholder="Search by Product Name" size="md" />
+            <Input placeholder="Search by Product Name" size="md" onChange={handleSearchChange} />
           </HStack>
           <HStack spacing="10px" justify="flex-start">
             <Text>Categories</Text>

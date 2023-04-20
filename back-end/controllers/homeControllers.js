@@ -35,6 +35,11 @@ module.exports = {
       ? data
       : data.filter(({Category}) => Category.name === req.query.filter);
 
+      data =
+      req.query.search ===""
+      ? data
+      : data.filter(element=> element.name.toLowerCase().includes(req.query.search.toLowerCase()));
+
       const sort = JSON.parse(req.query.limit);
       const offset = JSON.parse(req.query.offset);
 
