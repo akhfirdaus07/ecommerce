@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, {  
+  useState,
+  useEffect,
+  // useRef
+ } from "react";
 import {
   Grid,
   Text,
@@ -30,11 +34,12 @@ export const Products = () => {
   // states
   const [productsTotal, setProductsTotal] = useState();
   const [products, setProducts] = useState([]);
+  
 
-  const fetchProducts = async (pageSize, offset) => {
+  const fetchProducts = async (sort, offset = 0, pageSize = 9) => {
     await axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}`
+        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}`
       )
       .then((res) => {
         setProductsTotal(res.data.count);
@@ -42,11 +47,17 @@ export const Products = () => {
       });
   };
 
+  const [sort, setSort] = useState("default");
+  
   // constants
   const outerLimit = 1;
   const innerLimit = 1;
 
-  const { pages, pagesCount, offset, currentPage, setCurrentPage, pageSize } =
+  const { pages, pagesCount, 
+    offset, 
+    currentPage, setCurrentPage, 
+    pageSize 
+  } =
     usePagination({
       total: productsTotal,
       limits: {
@@ -60,29 +71,32 @@ export const Products = () => {
       }
     });
 
-  fetchProducts(pageSize, offset);
-
-  // handlers
+    // handlers
   const handlePageChange = (nextPage) => {
-    // -> request new data using the page number
     setCurrentPage(nextPage);
   };
 
-  const handleSort = (event) => {
-    const sort = event.target.value;
+  const handleSortChange= (e)=>{
+    setSort(e.target.value)
   };
+
+  useEffect(() => {
+    fetchProducts(sort, offset, pageSize);
+    setCurrentPage(currentPage);
+  }, [sort, currentPage, pageSize, offset])
 
   return (
     <Stack>
       <HStack spacing="24px" justify="space-evenly" mt={10}>
-        <HStack spacing="24px" >
+        <HStack spacing="24px">
           <Text>Sort By</Text>
           <Select ml={3} 
-          onChange={handleSort} 
-          w={40}>
-            <option value="">Most Relevant</option>
+          onChange={(e) => handleSortChange(e)}
+          // ref={sortRef}
+           w={40}>
+            <option value="default">Most Relevant</option>
             <option value="ascendAlpha">Name: A-Z</option>
-            <option value="descendAlpha">Name: A-Z</option>
+            <option value="descendAlpha">Name: Z-A</option>
             <option value="ascendPrice">Price: Low-High</option>
             <option value="descendPrice">Price: High-Low</option>
           </Select>
