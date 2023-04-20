@@ -123,7 +123,7 @@ export const Products = () => {
         mb={10}
         px={20}
         templateColumns="repeat(3, 1fr)"
-        templateRows="repeat(2, 1fr)"
+        templateRows="repeat(1, 1fr)"
       >
         {products?.map(
           ({ id, name, price, description, image, User, Category }) => (
