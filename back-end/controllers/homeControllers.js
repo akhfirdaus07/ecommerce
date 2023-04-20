@@ -1,10 +1,13 @@
 const db = require("../models");
 const product = db.Product;
+const category=db.Category;
 
 module.exports = {
   home: async (req, res) => {
     try {
-      const data =
+      const categories= await category.findAll();
+
+      let data =
         req.query.sort === "default"
           ? await product.findAll({ include: { all: true } })
           : req.query.sort === "ascendAlpha"
@@ -27,17 +30,24 @@ module.exports = {
               order: [["price", "DESC"]],
             });
 
+      data=
+      req.query.filter ==="default"
+      ? data
+      : data.filter(({Category}) => Category.name === req.query.filter);
+
+      const sort = JSON.parse(req.query.limit);
       const offset = JSON.parse(req.query.offset);
+
       res.status(200).send({
         count: data.length,
-        next: `${process.env.BASE_URL}/home?offset=${offset + 9}&limit=9&sort=${
-          req.query.sort
-        }`,
+        next: `${process.env.BASE_URL}/home?offset=${
+          offset + 9
+        }&limit=${sort}&sort=${req.query.sort}`,
         previous: `${process.env.BASE_URL}/home?offset=${
           offset < 9 ? 0 : offset - 9
-        }&limit=9&sort=${req.query.sort}`,
+        }&limit=${sort}&sort=${req.query.sort}`,
         results: data.slice(offset, offset + 9),
-        data,
+        categories,
       });
     } catch (err) {
       console.log(err);

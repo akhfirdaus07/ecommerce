@@ -1,8 +1,8 @@
-import React, {  
+import React, {
   useState,
-  useEffect,
+  useEffect
   // useRef
- } from "react";
+} from "react";
 import {
   Grid,
   Text,
@@ -34,30 +34,29 @@ export const Products = () => {
   // states
   const [productsTotal, setProductsTotal] = useState();
   const [products, setProducts] = useState([]);
-  
+  const [categories, setCategories] = useState([]);
 
-  const fetchProducts = async (sort, offset = 0, pageSize = 9) => {
+  const fetchProducts = async (sort, offset, pageSize, filter) => {
     await axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}`
+        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}&filter=${filter}`
       )
       .then((res) => {
         setProductsTotal(res.data.count);
         setProducts(res.data.results);
+        setCategories(res.data.categories);
       });
   };
 
+  // states
   const [sort, setSort] = useState("default");
-  
+  const [filter, setFilter] = useState("default");
+
   // constants
   const outerLimit = 1;
   const innerLimit = 1;
 
-  const { pages, pagesCount, 
-    offset, 
-    currentPage, setCurrentPage, 
-    pageSize 
-  } =
+  const { pages, pagesCount, offset, currentPage, setCurrentPage, pageSize } =
     usePagination({
       total: productsTotal,
       limits: {
@@ -71,29 +70,44 @@ export const Products = () => {
       }
     });
 
-    // handlers
+  // handlers
   const handlePageChange = (nextPage) => {
     setCurrentPage(nextPage);
   };
 
-  const handleSortChange= (e)=>{
-    setSort(e.target.value)
+  const handleSortChange = (e) => {
+    setSort(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
-    fetchProducts(sort, offset, pageSize);
+    fetchProducts(sort, offset, pageSize, filter);
     setCurrentPage(currentPage);
-  }, [sort, currentPage, pageSize, offset])
+  }, [sort, offset, pageSize, filter, currentPage]);
 
   return (
     <Stack>
-      <HStack spacing="24px" justify="space-evenly" mt={10}>
+      <HStack spacing="24px" justify="space-between" mt={10} mr={100} ml={100}>
+        <HStack spacing="24px">
+          <Text>Categories</Text>
+          <Select onChange={(e) => handleFilterChange(e)} w={40}>
+            <option value="default">All</option>
+            {categories.map(
+              ({name}) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              )
+            )}
+          </Select>
+        </HStack>
         <HStack spacing="24px">
           <Text>Sort By</Text>
-          <Select ml={3} 
-          onChange={(e) => handleSortChange(e)}
-          // ref={sortRef}
-           w={40}>
+          <Select onChange={(e) => handleSortChange(e)} w={40}>
             <option value="default">Most Relevant</option>
             <option value="ascendAlpha">Name: A-Z</option>
             <option value="descendAlpha">Name: Z-A</option>
