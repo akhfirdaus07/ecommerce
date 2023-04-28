@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Transaction.init({
     qty: DataTypes.INTEGER,
-    totalAmout: DataTypes.INTEGER
+    totalAmount: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Transaction',
