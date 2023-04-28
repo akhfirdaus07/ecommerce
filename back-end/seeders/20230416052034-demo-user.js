@@ -13,6 +13,7 @@ module.exports = {
         password: "Password1.",
         createdAt: new Date(),
         updatedAt: new Date(),
+        detailId: 1,
       },
       {
         id: 2,
@@ -23,6 +24,7 @@ module.exports = {
         password: "Password1.",
         createdAt: new Date(),
         updatedAt: new Date(),
+        detailId: 2,
       },
       {
         id: 3,
@@ -33,6 +35,7 @@ module.exports = {
         password: "Password1.",
         createdAt: new Date(),
         updatedAt: new Date(),
+        detailId: 3,
       },
       {
         id: 4,
@@ -43,6 +46,7 @@ module.exports = {
         password: "Password1.",
         createdAt: new Date(),
         updatedAt: new Date(),
+        detailId: 4,
       },
       {
         id: 5,
@@ -53,10 +57,11 @@ module.exports = {
         password: "Password1.",
         createdAt: new Date(),
         updatedAt: new Date(),
+        detailId: 5,
       },
     ]);
   },
-  
+
   async down(queryInterface, Sequelize) {
     return queryInterface.bulkDelete("Users", null, {});
   },
