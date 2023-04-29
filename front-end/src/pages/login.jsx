@@ -48,7 +48,7 @@ export const LoginForm = () => {
       if (err.response.data) {
         Swal.fire({
           icon: "error",
-          title: err.response.data,
+          title: err.response.data.message,
           showConfirmButton: false,
           timer: 1500
         });
