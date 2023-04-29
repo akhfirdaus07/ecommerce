@@ -6,6 +6,7 @@ module.exports = {
   home: async (req, res) => {
     try {
       const categories= await category.findAll();
+      // const value=await product.findAll({ include: { all: true } });
 
       let data =
         req.query.sort === "default"
@@ -52,6 +53,7 @@ module.exports = {
           offset < 9 ? 0 : offset - 9
         }&limit=${sort}&sort=${req.query.sort}`,
         results: data.slice(offset, offset + 9),
+        // value,
         categories,
       });
     } catch (err) {

@@ -3,6 +3,11 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const bcrypt = require("bcrypt");
+    const password="Password1."
+    const salt = await bcrypt.genSalt(10);
+    const hashPass = await bcrypt.hash(password, salt);
+
     return queryInterface.bulkInsert("Users", [
       {
         id: 1,
@@ -10,7 +15,7 @@ module.exports = {
         email: "firstperson@gmail.com",
         phone: "0811-1111-1111",
         storeName: "First Store",
-        password: "Password1.",
+        password: hashPass,
         createdAt: new Date(),
         updatedAt: new Date(),
         detailId: 1,
@@ -21,7 +26,7 @@ module.exports = {
         email: "secondperson@gmail.com",
         phone: "0822-2222-2222",
         storeName: "Second Store",
-        password: "Password1.",
+        password: hashPass,
         createdAt: new Date(),
         updatedAt: new Date(),
         detailId: 2,
@@ -32,7 +37,7 @@ module.exports = {
         email: "thirdperson@gmail.com",
         phone: "0833-3333-3333",
         storeName: "Third Store",
-        password: "Password1.",
+        password: hashPass,
         createdAt: new Date(),
         updatedAt: new Date(),
         detailId: 3,
@@ -43,7 +48,7 @@ module.exports = {
         email: "fourthperson@gmail.com",
         phone: "0844-4444-4444",
         storeName: "Fourth Store",
-        password: "Password1.",
+        password: hashPass,
         createdAt: new Date(),
         updatedAt: new Date(),
         detailId: 4,
@@ -54,7 +59,7 @@ module.exports = {
         email: "fifthperson@gmail.com",
         phone: "0855-5555-5555",
         storeName: "Fifth Store",
-        password: "Password1.",
+        password: hashPass,
         createdAt: new Date(),
         updatedAt: new Date(),
         detailId: 5,
