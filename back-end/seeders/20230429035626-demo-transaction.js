@@ -132,7 +132,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         productId:1,
-        sellerId:5,
+        sellerId:1,
         buyerId:3,
         logisticId:3,
       },

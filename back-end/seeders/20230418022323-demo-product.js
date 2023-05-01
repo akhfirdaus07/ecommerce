@@ -14,7 +14,7 @@ module.exports = {
           "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/9/17/f1a3eb75-18c3-48d1-aa5e-2b5186f1f4ac.png",
         createdAt: new Date(),
         updatedAt: new Date(),
-        sellerId: 2,
+        sellerId: 1,
         categoryId: 2,
       },
       {
@@ -27,7 +27,7 @@ module.exports = {
           "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/11/17/9f602e36-92b1-403c-8d7f-6fa02971e2f3.jpg",
         createdAt: new Date(),
         updatedAt: new Date(),
-        sellerId: 3,
+        sellerId: 5,
         categoryId: 1,
       },
       {
@@ -40,7 +40,7 @@ module.exports = {
           "https://images.tokopedia.net/img/cache/900/hDjmkQ/2022/12/27/fb15b20d-4b3e-460e-a0d1-16f5ade9a0b1.png",
         createdAt: new Date(),
         updatedAt: new Date(),
-        sellerId: 2,
+        sellerId: 1,
         categoryId: 5,
       },
       {
@@ -66,7 +66,7 @@ module.exports = {
           "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/9/17/f1a3eb75-18c3-48d1-aa5e-2b5186f1f4ac.png",
         createdAt: new Date(),
         updatedAt: new Date(),
-        sellerId: 5,
+        sellerId: 1,
         categoryId: 5,
       },
       {
@@ -131,7 +131,7 @@ module.exports = {
           "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/7/1750f428-54cf-40a6-8178-18fa32c78623.jpg",
         createdAt: new Date(),
         updatedAt: new Date(),
-        sellerId: 3,
+        sellerId: 1,
         categoryId: 1,
       },
       {

@@ -1,6 +1,7 @@
 const db = require("../models");
 const transaction = db.Transaction;
 const user = db.User;
+const product=db.Product;
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -35,33 +36,42 @@ module.exports = {
       });
 
       const getReport = (start, end) => {
-        let totalIncome;
+        let totalIncome, totalTransaction;
         for (
           var arr = [], dt = new Date(start);
           dt <= new Date(end);
           dt.setDate(dt.getDate() + 1)
         ) {
           totalIncome = 0;
+          totalTransaction = 0;
           transactionData.forEach((transaction) => {
             if (
               dt.toDateString() ==
               new Date(transaction.createdAt).toDateString()
             ) {
               totalIncome += transaction.totalAmount;
+              totalTransaction += 1;
             }
           });
-          arr.push({ date: new Date(dt), totalIncome });
+          arr.push({ date: new Date(dt), totalIncome, totalTransaction });
         }
         return arr;
       };
 
-      const incomeByDay = getReport(new Date(startDate), new Date(endDate));
+      const dataByDay = getReport(new Date(startDate), new Date(endDate));
       //   incomeByDay.map((v) => v.toISOString().slice(0, 10)).join("");
+
+      const productData= await product.findAll({ 
+        include: { all: true }, 
+        raw:true,
+        where: { sellerId:userData.id},
+    });
 
       res.status(200).send({
         status: true,
         userData,
-        incomeByDay,
+        productData,
+        dataByDay,
         transactionData,
       });
     } catch (err) {
