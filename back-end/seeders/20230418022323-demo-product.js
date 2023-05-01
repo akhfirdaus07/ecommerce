@@ -134,6 +134,71 @@ module.exports = {
         sellerId: 3,
         categoryId: 1,
       },
+      {
+        id: 11,
+        name: "Hoodie Pria NEW BALANCE",
+        price: 399000,
+        description:
+          "Brand New With Tag - Fullset. Original Guarantee 100%",
+        image:
+          "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/29/4f87a986-a740-4131-b5c6-b41c13498b5b.jpg",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        sellerId: 1,
+        categoryId: 1,
+      },
+      {
+        id: 12,
+        name: "Kaos Pria NIKE M NSW TEE LCHA",
+        price: 349000,
+        description:
+          "Brand New With Tag - Fullset. Original Guarantee 100%",
+        image:
+          "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/28/1789d8be-6f3f-4f45-b0a7-8885e5c53a80.png",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        sellerId: 1,
+        categoryId: 1,
+      },
+      {
+        id: 13,
+        name: "Kaos Pria SKECHERS MEN SPORTS",
+        price: 149000,
+        description:
+          "Brand New With Tag - Fullset. Original Guarantee 100%",
+        image:
+          "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/26/3a510ed6-4db3-424c-80fe-8e4dc339b5c7.png",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        sellerId: 1,
+        categoryId: 1,
+      },
+      {
+        id: 14,
+        name: "Celana Wanita NIKE WMNS SHORT X TRAVIS",
+        price: 649000,
+        description:
+          "Brand New With Tag - Fullset. Original Guarantee 100%",
+        image:
+          "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/26/9129aa13-36f6-4f06-9d92-be0188cc7554.png",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        sellerId: 1,
+        categoryId: 1,
+      },
+      {
+        id: 15,
+        name: "Celana Training Pria NIKE ACG CC WINDSHELL",
+        price: 649000,
+        description:
+          "Brand New With Tag - Fullset. Original Guarantee 100%",
+        image:
+          "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/26/b5fc4ea9-668f-41dd-831f-c6642e3b5ee5.png",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        sellerId: 1,
+        categoryId: 1,
+      },
     ]);
   },
 
