@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { reportControllers } = require("../controllers");
 
-router.get("/gross-income", reportControllers.income);
+router.get("/", reportControllers.report);
 
 module.exports = router;

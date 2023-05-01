@@ -1,11 +1,12 @@
 const db = require("../models");
 const transaction = db.Transaction;
 const user = db.User;
-const product=db.Product;
+const product = db.Product;
+const category = db.Category;
 const { Op } = require("sequelize");
 
 module.exports = {
-  income: async (req, res) => {
+  report: async (req, res) => {
     try {
       const username = "FirstPerson";
       //   const username = localStorage.getItem("username");
@@ -25,8 +26,14 @@ module.exports = {
       const { startDate, endDate } = req.body;
 
       const transactionData = await transaction.findAll({
+        include: {
+          model: product,
+          where: {
+            sellerId: userData.id,
+          },
+        },
+        raw: true,
         where: {
-          sellerId: userData.id,
           createdAt: {
             // [Op.between]: [startDate, endDate]
             [Op.gte]: startDate,
@@ -61,16 +68,31 @@ module.exports = {
       const dataByDay = getReport(new Date(startDate), new Date(endDate));
       //   incomeByDay.map((v) => v.toISOString().slice(0, 10)).join("");
 
-      const productData= await product.findAll({ 
-        include: { all: true }, 
-        raw:true,
-        where: { sellerId:userData.id},
-    });
+      const productData = await product.findAll({
+        include: { model: category },
+        raw: true,
+        where: { sellerId: userData.id },
+      });
+
+      const getSoldData = () => {
+        productData.forEach((product) => {
+          product.totalSold = 0;
+          transactionData.forEach((transaction) => {
+            if (transaction.productId === product.id) {
+              product.totalSold += 1;
+            }
+          });
+        });
+        productData.sort((a, b) => b.totalSold - a.totalSold);
+        return productData;
+      };
+
+      const productSold = getSoldData();
 
       res.status(200).send({
         status: true,
         userData,
-        productData,
+        productSold,
         dataByDay,
         transactionData,
       });
