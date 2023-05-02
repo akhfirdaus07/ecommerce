@@ -4,7 +4,7 @@ import { ErrorPage } from "./pages/error";
 import { HomePage } from "./pages/home";
 import { LoginForm } from "./pages/login";
 import { RegistrationForm } from "./pages/register";
-import { reportPage } from "./pages/report";
+import { ReportPage } from "./pages/report";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   },
   { path: "/login", element: <LoginForm /> },
   { path: "/register", element: <RegistrationForm /> },
-  { path: "/report", element: <reportPage /> },
+  { path: "/report", element: <ReportPage /> },
 ]);
 
 function App() {

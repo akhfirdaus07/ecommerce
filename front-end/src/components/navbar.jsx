@@ -41,7 +41,7 @@ export const Navbar = () => {
             <Text as="b" mr="2">
               Hello, {username}!
             </Text>
-            <Menu>
+            <Menu >
               <Avatar
                 as={MenuButton}
                 name={username}
@@ -49,7 +49,7 @@ export const Navbar = () => {
                 mr="4"
               />
               <MenuList>
-                <MenuItem>Profile</MenuItem>
+                {/* <MenuItem>Profile</MenuItem> */}
                 <MenuItem onClick={() => navigate("/report")}>Report</MenuItem>
                 <MenuItem onClick={onSignOut}>Sign Out</MenuItem>
               </MenuList>

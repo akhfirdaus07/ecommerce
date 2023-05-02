@@ -88,7 +88,6 @@ export const Products = () => {
   };
 
   const handleSearchChange=(e)=>{
-    console.log(e.target.value);
     setSearch(e.target.value)
   };
 
