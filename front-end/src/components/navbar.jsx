@@ -50,7 +50,7 @@ export const Navbar = () => {
               />
               <MenuList>
                 <MenuItem>Profile</MenuItem>
-                <MenuItem>Report</MenuItem>
+                <MenuItem onClick={() => navigate("/report")}>Report</MenuItem>
                 <MenuItem onClick={onSignOut}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
