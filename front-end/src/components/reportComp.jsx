@@ -5,13 +5,18 @@ import {
   //   Stack,
   //   CardBody,
   Heading,
+  Input,
+  FormControl,
+  FormLabel,
+  //   HStack,
   //   Text,
   Tabs,
   Tab,
   TabList,
   TabPanels,
   TabPanel,
-  Divider
+  Divider,
+  Stack
   //   CardFooter,
   //   Button
 } from "@chakra-ui/react";
@@ -28,6 +33,12 @@ export const ReportComp = () => {
     });
   };
 
+  //   const onStartDate=async()=>{
+  //     try{
+
+  //     }
+  //   };
+
   useEffect(() => {
     fetchData();
   });
@@ -37,8 +48,8 @@ export const ReportComp = () => {
       <Heading size="2xl" textAlign="center" my="5">
         Reports
       </Heading>
-      <Tabs variant="unstyled">
-        <TabList>
+      <Tabs variant="enclosed">
+        <TabList justifyContent="space-between">
           <Tab _selected={{ color: "white", bg: "blue.500" }}>
             Gross Income Day by Day
           </Tab>
@@ -48,7 +59,40 @@ export const ReportComp = () => {
           <Tab _selected={{ color: "white", bg: "red.400" }}>
             Top Selling Product
           </Tab>
+
+          <Stack
+            spacing="10px"
+            direction={["column", "row"]}
+            pr="2"
+            pb="2"
+          >
+            <FormControl id="startDate">
+              <FormLabel fontSize="xs" textAlign="center">
+                Start Date
+              </FormLabel>
+              <Input
+                defaultValue={
+                  new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+                    .toISOString()
+                    .split("T")[0]
+                }
+                size="xs"
+                type="date"
+              />
+            </FormControl>
+            <FormControl id="endDate">
+              <FormLabel fontSize="xs" textAlign="center">
+                End Date
+              </FormLabel>
+              <Input
+                defaultValue={new Date().toISOString().split("T")[0]}
+                size="xs"
+                type="date"
+              />
+            </FormControl>
+          </Stack>
         </TabList>
+
         <Divider />
         <TabPanels>
           <TabPanel>
