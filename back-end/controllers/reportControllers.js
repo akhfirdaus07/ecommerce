@@ -20,8 +20,11 @@ module.exports = {
       //   Date filter, default to 7 days ago
       //   const startDate = new Date(new Date().setDate(new Date().getDate() - 7)); //default to 7 days ago;
 
-        const startDate= "2023-05-01"
-        const endDate = new Date();
+      // const startDate= "2023-05-01"
+      // const endDate = new Date();
+
+      const startDate = req.query.startDate;
+      const endDate = req.query.endDate;
 
       // const { startDate, endDate } = req.body;
 
