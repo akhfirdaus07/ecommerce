@@ -21,27 +21,55 @@ import {
   //   Button
 } from "@chakra-ui/react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const ReportComp = () => {
   const [dataByDay, setData] = useState([]);
   const [products, setProducts] = useState([]);
+  const [startDate, setStartDate] = useState(
+    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]
+  );
+  const [endDate, setEndDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
 
   const fetchData = async () => {
-    await axios.get(`${process.env.REACT_APP_BASE_URL}/report`).then((res) => {
-      setData(res.data.dataByDay);
-      setProducts(res.data.productSold);
-    });
+    await axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}/report?startDate=${startDate}&endDate=${endDate}`
+      )
+      .then((res) => {
+        setData(res.data.dataByDay);
+        setProducts(res.data.productSold);
+      });
   };
 
-  //   const onStartDate=async()=>{
-  //     try{
-
-  //     }
-  //   };
+  const onChangeDate = async () => {
+    try {
+      setStartDate(document.getElementById("startDate").value);
+      setEndDate(document.getElementById("endDate").value);
+    } catch (err) {
+      if (err.response.data) {
+        Swal.fire({
+          icon: "error",
+          title: err.response.data,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: err.response.data.errors[0].message,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     fetchData();
-  });
+  }, [startDate, endDate]);
 
   return (
     <Card overflow="hidden" variant="outline" ml="40" mt="10" mr="40" mb="10">
@@ -60,13 +88,8 @@ export const ReportComp = () => {
             Top Selling Product
           </Tab>
 
-          <Stack
-            spacing="10px"
-            direction={["column", "row"]}
-            pr="2"
-            pb="2"
-          >
-            <FormControl id="startDate">
+          <Stack spacing="10px" direction={["column", "row"]} pr="2" pb="2">
+            <FormControl id="startDate" onChange={onChangeDate}>
               <FormLabel fontSize="xs" textAlign="center">
                 Start Date
               </FormLabel>
@@ -80,7 +103,7 @@ export const ReportComp = () => {
                 type="date"
               />
             </FormControl>
-            <FormControl id="endDate">
+            <FormControl id="endDate" onChange={onChangeDate}>
               <FormLabel fontSize="xs" textAlign="center">
                 End Date
               </FormLabel>
@@ -97,7 +120,7 @@ export const ReportComp = () => {
         <TabPanels>
           <TabPanel>
             {dataByDay.map(({ date, totalIncome }) => (
-              <TabPanel>
+              <TabPanel key={date}>
                 <p>{date}</p>
                 <p>{totalIncome}</p>
               </TabPanel>
@@ -105,7 +128,7 @@ export const ReportComp = () => {
           </TabPanel>
           <TabPanel>
             {dataByDay.map(({ date, totalTransaction }) => (
-              <TabPanel>
+              <TabPanel key={date}>
                 <p>{date}</p>
                 <p>{totalTransaction}</p>
               </TabPanel>
@@ -113,7 +136,7 @@ export const ReportComp = () => {
           </TabPanel>
           <TabPanel>
             {products.map(({ name, totalSold }) => (
-              <TabPanel>
+              <TabPanel key={name}>
                 <p>{name}</p>
                 <p>{totalSold}</p>
               </TabPanel>
