@@ -20,10 +20,10 @@ module.exports = {
       //   Date filter, default to 7 days ago
       //   const startDate = new Date(new Date().setDate(new Date().getDate() - 7)); //default to 7 days ago;
 
-      //   const startDate= "2023-01-01"
-      //   const endDate = new Date();
+        const startDate= "2023-05-01"
+        const endDate = new Date();
 
-      const { startDate, endDate } = req.body;
+      // const { startDate, endDate } = req.body;
 
       const transactionData = await transaction.findAll({
         include: {
