@@ -5,9 +5,9 @@ import {
   Stack,
   CardBody,
   Heading,
-  Text,
-//   CardFooter,
-//   Button
+  Text
+  //   CardFooter,
+  //   Button
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -44,15 +44,11 @@ export const MiniProfile = () => {
         <CardBody>
           <Heading size="2xl">Username: {user.username}</Heading>
 
-          <Text as='i' fontSize="3xl">
-           Store Name:  {user.storeName}
+          <Text as="i" fontSize="3xl">
+            Store Name: {user.storeName}
           </Text>
-          <Text fontSize="lg">
-            Email:  {user.email}
-          </Text>
-          <Text fontSize="lg">
-            Phone:  {user.phone}
-          </Text>
+          <Text fontSize="lg">Email: {user.email}</Text>
+          <Text fontSize="lg">Phone: {user.phone}</Text>
         </CardBody>
 
         {/* <CardFooter>
