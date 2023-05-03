@@ -1,13 +1,13 @@
 const db = require("../models");
 const product = db.Product;
-const category=db.Category;
+const category = db.Category;
+const cart = db.Cart;
+const user = db.User;
 
 module.exports = {
   home: async (req, res) => {
     try {
-      const categories= await category.findAll();
-      // const value=await product.findAll({ include: { all: true } });
-
+      const categories = await category.findAll();
       let data =
         req.query.sort === "default"
           ? await product.findAll({ include: { all: true } })
@@ -31,18 +31,37 @@ module.exports = {
               order: [["price", "DESC"]],
             });
 
-      data=
-      req.query.filter ==="default"
-      ? data
-      : data.filter(({Category}) => Category.name === req.query.filter);
+      data =
+        req.query.filter === "default"
+          ? data
+          : data.filter(({ Category }) => Category.name === req.query.filter);
 
       data =
-      req.query.search ===""
-      ? data
-      : data.filter(element=> element.name.toLowerCase().includes(req.query.search.toLowerCase()));
+        req.query.search === ""
+          ? data
+          : data.filter((element) =>
+              element.name
+                .toLowerCase()
+                .includes(req.query.search.toLowerCase())
+            );
 
       const sort = JSON.parse(req.query.limit);
       const offset = JSON.parse(req.query.offset);
+
+      // Cart Controller
+      const username = "FirstPerson";
+      //   const username = localStorage.getItem("username");
+
+      const userData = await user.findOne({
+        where: {
+          username,
+        },
+      });
+      const cartData = await cart.findAll({
+        where: {
+          userId: userData.id,
+        },
+      });
 
       res.status(200).send({
         count: data.length,
@@ -53,8 +72,9 @@ module.exports = {
           offset < 9 ? 0 : offset - 9
         }&limit=${sort}&sort=${req.query.sort}`,
         results: data.slice(offset, offset + 9),
-        // value,
         categories,
+        cartData,
+        userData,
       });
     } catch (err) {
       console.log(err);
