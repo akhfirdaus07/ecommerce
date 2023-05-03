@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 import {
   Card,
-  //   Image,
-  //   Stack,
-  //   CardBody,
   Heading,
   Input,
   FormControl,
   FormLabel,
-  //   HStack,
-  //   Text,
   Tabs,
   Tab,
   TabList,
@@ -17,11 +14,18 @@ import {
   TabPanel,
   Divider,
   Stack
-  //   CardFooter,
-  //   Button
 } from "@chakra-ui/react";
-import axios from "axios";
-import Swal from "sweetalert2";
+import {
+  BarChart,
+  Bar,
+  //   Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+  //   ResponsiveContainer
+} from "recharts";
 
 export const ReportComp = () => {
   const [dataByDay, setData] = useState([]);
@@ -118,13 +122,44 @@ export const ReportComp = () => {
 
         <Divider />
         <TabPanels>
-          <TabPanel>
-            {dataByDay.map(({ date, totalIncome }) => (
+          <TabPanel align="center" mt="10" mb="5">
+            <BarChart
+              width={1000}
+              height={500}
+              data={dataByDay}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis
+                tickFormatter={(value) =>
+                  `Rp${new Intl.NumberFormat("id-ID", {
+                    notation: "compact",
+                    compactDisplay: "short"
+                  }).format(value)}`
+                }
+              />
+              <Tooltip
+                formatter={(value) =>
+                  `Rp${new Intl.NumberFormat(["ban", "id"]).format(value)}`
+                }
+                labelFormatter={(value) => `Date: ${value}`}
+              />
+              <Legend />
+              <Bar name="Gross Income" dataKey="totalIncome" fill="#8884d8" />
+            </BarChart>
+
+            {/* {dataByDay.map(({ date, totalIncome }) => (
               <TabPanel key={date}>
                 <p>{date}</p>
                 <p>{totalIncome}</p>
               </TabPanel>
-            ))}
+            ))} */}
           </TabPanel>
           <TabPanel>
             {dataByDay.map(({ date, totalTransaction }) => (
