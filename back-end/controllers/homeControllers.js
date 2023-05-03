@@ -81,4 +81,25 @@ module.exports = {
       res.status(400).send(err);
     }
   },
+  addToCart: async (req, res) => {
+    try {
+      const { qty, totalAmount, userId, productId } = req.body;
+
+      const cartData = await cart.create({
+        qty,
+        totalAmount,
+        userId,
+        productId,
+      });
+
+      res.status(200).send({
+        status: true,
+        cartData,
+        message: "Add to Cart Successfully",
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
 };
