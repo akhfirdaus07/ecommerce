@@ -85,10 +85,10 @@ export const ReportComp = () => {
           <Tab _selected={{ color: "white", bg: "blue.500" }}>
             Gross Income Day by Day
           </Tab>
-          <Tab _selected={{ color: "white", bg: "green.400" }}>
+          <Tab _selected={{ color: "white", bg: "red.400" }}>
             Total Transaction Day by Day
           </Tab>
-          <Tab _selected={{ color: "white", bg: "red.400" }}>
+          <Tab _selected={{ bg: "yellow.400" }}>
             Top Selling Product
           </Tab>
 
@@ -151,7 +151,7 @@ export const ReportComp = () => {
                 labelFormatter={(value) => `Date: ${value}`}
               />
               <Legend />
-              <Bar name="Gross Income" dataKey="totalIncome" fill="#8884d8" />
+              <Bar name="Gross Income" dataKey="totalIncome" fill="#2196F3" />
             </BarChart>
 
             {/* {dataByDay.map(({ date, totalIncome }) => (
@@ -181,7 +181,7 @@ export const ReportComp = () => {
               <Bar
                 name="Total Transaction"
                 dataKey="totalTransaction"
-                fill="#8884d8"
+                fill="#EF5350"
               />
             </BarChart>
             {/* {dataByDay.map(({ date, totalTransaction }) => (
