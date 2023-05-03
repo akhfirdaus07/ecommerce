@@ -20,6 +20,9 @@ export const Navbar = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
+  const onHome = () => {
+    navigate("/");
+  };
 
   return (
     <HStack
@@ -31,7 +34,7 @@ export const Navbar = () => {
       h="16"
     >
       <Flex justify="flex-start" align="center" ml="4">
-        <Text as="b" fontSize="3xl" color="red.500">
+        <Text as="b" fontSize="3xl" color="red.500" onClick={onHome}>
           TokoSebelah!
         </Text>
       </Flex>
