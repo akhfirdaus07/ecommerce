@@ -20,7 +20,9 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer
+  TableContainer,
+  Text,
+  Select
 } from "@chakra-ui/react";
 import {
   BarChart,
@@ -41,15 +43,18 @@ export const ReportComp = () => {
   const [endDate, setEndDate] = useState(
     new Date().toISOString().split("T")[0]
   );
+  const [filter, setFilter] = useState("default");
+  const [categories, setCategories] = useState([]);
 
   const fetchData = async () => {
     await axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}/report?startDate=${startDate}&endDate=${endDate}`
+        `${process.env.REACT_APP_BASE_URL}/report?startDate=${startDate}&endDate=${endDate}&filter=${filter}`
       )
       .then((res) => {
         setData(res.data.dataByDay);
         setProducts(res.data.productSold);
+        setCategories(res.data.categories);
       });
   };
 
@@ -76,9 +81,13 @@ export const ReportComp = () => {
     }
   };
 
+  const onFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+
   useEffect(() => {
     fetchData();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, filter]);
 
   return (
     <Card overflow="hidden" variant="outline" ml="40" mt="10" mr="40" mb="10">
@@ -184,6 +193,18 @@ export const ReportComp = () => {
             </BarChart>
           </TabPanel>
           <TabPanel>
+            <Stack direction={["column", "row"]} spacing="10px" justify="center" align="center" mt="2">
+              <Text >Categories</Text>
+              <Select onChange={(e) => onFilterChange(e)} w={40}>
+                <option value="default">All</option>
+                {categories.map(({ name }) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </Select>
+            </Stack>
+
             <TableContainer px="100" my="10">
               <Table variant="striped" colorScheme="whatsapp" size="sm">
                 <Thead>
