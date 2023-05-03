@@ -63,7 +63,7 @@ module.exports = {
               totalTransaction += 1;
             }
           });
-          arr.push({ date: new Date(dt), totalIncome, totalTransaction });
+          arr.push({ date: new Date(dt).toLocaleDateString(), totalIncome, totalTransaction });
         }
         return arr;
       };
