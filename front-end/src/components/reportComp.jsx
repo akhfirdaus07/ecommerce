@@ -161,13 +161,35 @@ export const ReportComp = () => {
               </TabPanel>
             ))} */}
           </TabPanel>
-          <TabPanel>
-            {dataByDay.map(({ date, totalTransaction }) => (
+          <TabPanel align="center" mt="10" mb="5">
+            <BarChart
+              width={1000}
+              height={500}
+              data={dataByDay}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip labelFormatter={(value) => `Date: ${value}`} />
+              <Legend />
+              <Bar
+                name="Total Transaction"
+                dataKey="totalTransaction"
+                fill="#8884d8"
+              />
+            </BarChart>
+            {/* {dataByDay.map(({ date, totalTransaction }) => (
               <TabPanel key={date}>
                 <p>{date}</p>
                 <p>{totalTransaction}</p>
               </TabPanel>
-            ))}
+            ))} */}
           </TabPanel>
           <TabPanel>
             {products.map(({ name, totalSold }) => (
