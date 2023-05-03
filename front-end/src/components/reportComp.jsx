@@ -13,18 +13,23 @@ import {
   TabPanels,
   TabPanel,
   Divider,
-  Stack
+  Stack,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer
 } from "@chakra-ui/react";
 import {
   BarChart,
   Bar,
-  //   Cell,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend
-  //   ResponsiveContainer
 } from "recharts";
 
 export const ReportComp = () => {
@@ -88,7 +93,7 @@ export const ReportComp = () => {
           <Tab _selected={{ color: "white", bg: "red.400" }}>
             Total Transaction Day by Day
           </Tab>
-          <Tab _selected={{ bg: "yellow.400" }}>
+          <Tab _selected={{ color: "white", bg: "green.300" }}>
             Top Selling Product
           </Tab>
 
@@ -153,13 +158,6 @@ export const ReportComp = () => {
               <Legend />
               <Bar name="Gross Income" dataKey="totalIncome" fill="#2196F3" />
             </BarChart>
-
-            {/* {dataByDay.map(({ date, totalIncome }) => (
-              <TabPanel key={date}>
-                <p>{date}</p>
-                <p>{totalIncome}</p>
-              </TabPanel>
-            ))} */}
           </TabPanel>
           <TabPanel align="center" mt="10" mb="5">
             <BarChart
@@ -184,20 +182,40 @@ export const ReportComp = () => {
                 fill="#EF5350"
               />
             </BarChart>
-            {/* {dataByDay.map(({ date, totalTransaction }) => (
-              <TabPanel key={date}>
-                <p>{date}</p>
-                <p>{totalTransaction}</p>
-              </TabPanel>
-            ))} */}
           </TabPanel>
           <TabPanel>
-            {products.map(({ name, totalSold }) => (
-              <TabPanel key={name}>
-                <p>{name}</p>
-                <p>{totalSold}</p>
-              </TabPanel>
-            ))}
+            <TableContainer px="100" my="10">
+              <Table variant="striped" colorScheme="whatsapp" size="sm">
+                <Thead>
+                  <Tr>
+                    <Th textAlign="center" fontSize="lg">
+                      No
+                    </Th>
+                    <Th textAlign="center" fontSize="lg">
+                      Product Name
+                    </Th>
+                    <Th textAlign="center" fontSize="lg">
+                      Total Sold
+                    </Th>
+                    <Th textAlign="center" fontSize="lg">
+                      Category
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {products.map(
+                    ({ name, totalSold, "Category.name": category }, i) => (
+                      <Tr>
+                        <Td textAlign="center">{i + 1}</Td>
+                        <Td>{name}</Td>
+                        <Td textAlign="center">{totalSold}</Td>
+                        <Td textAlign="center">{category}</Td>
+                      </Tr>
+                    )
+                  )}
+                </Tbody>
+              </Table>
+            </TableContainer>
           </TabPanel>
         </TabPanels>
       </Tabs>
