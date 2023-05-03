@@ -90,13 +90,21 @@ module.exports = {
         return productData;
       };
 
-      const productSold = getSoldData();
+      let productSold = getSoldData();
+
+      productSold=
+      req.query.filter ==="default"
+      ? productSold
+      : productSold.filter(({"Category.name":category}) => category === req.query.filter);
+
+      const categories= await category.findAll();
 
       res.status(200).send({
         status: true,
         userData,
         productSold,
         dataByDay,
+        categories,
         transactionData,
       });
     } catch (err) {
