@@ -32,15 +32,6 @@ module.exports = {
           key: "id",
         },
       },
-      // sellerId: {
-      //   type: Sequelize.DataTypes.INTEGER,
-      //   references: {
-      //     model: {
-      //       tableName: "Users",
-      //     },
-      //     key: "id",
-      //   },
-      // },
       buyerId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
