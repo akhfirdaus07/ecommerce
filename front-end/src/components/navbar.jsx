@@ -7,10 +7,23 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+  Stack,
+  Portal,
+  PopoverFooter,
+  Image,
   MenuItem
 } from "@chakra-ui/react";
+import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -23,6 +36,20 @@ export const Navbar = () => {
   const onHome = () => {
     navigate("/");
   };
+
+  const [cart, setCart] = useState([]);
+
+  const fetchCart = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_BASE_URL}/home?offset=0&limit=9`)
+      .then((res) => {
+        setCart(res.data.cartData);
+      });
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, [cart]);
 
   return (
     <HStack
@@ -44,7 +71,66 @@ export const Navbar = () => {
             <Text as="b" mr="2">
               Hi, {username}!
             </Text>
-            <Menu >
+            <Stack mr="2">
+              <Popover>
+                <PopoverTrigger>
+                  <Button
+                    leftIcon={<FaShoppingCart size="1.5em" />}
+                    color="black"
+                    size="lg"
+                    p="0"
+                    bg="gray.50"
+                  />
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverHeader>Your Cart!</PopoverHeader>
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      {cart?.map(
+                        ({
+                          "Product.image": image,
+                          "Product.name": productName,
+                          qty,
+                          "Product.price": price
+                        }) => (
+                          <Stack
+                            direction={["column", "row"]}
+                            align="center"
+                            justify="space-between"
+                            gap="2"
+                          >
+                            <Image
+                              src={image}
+                              borderRadius="lg"
+                              boxSize="50px"
+                            />
+                            <Stack>
+                            <Text fontSize="sm">
+                              {productName}
+                            </Text>
+                            <Text fontSize="xs">
+                              x {qty} 
+                            </Text>
+                            </Stack>
+                            <Text fontSize="sm">
+                              Rp{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                            </Text>
+                          </Stack>
+                        )
+                      )}
+                    </PopoverBody>
+                    <PopoverFooter justify="end" align="end">
+                      <Button colorScheme="green" size="xs">
+                        Proceed
+                      </Button>
+                    </PopoverFooter>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
+            </Stack>
+            <Menu>
               <Avatar
                 as={MenuButton}
                 name={username}
@@ -52,7 +138,6 @@ export const Navbar = () => {
                 mr="4"
               />
               <MenuList>
-                {/* <MenuItem>Profile</MenuItem> */}
                 <MenuItem onClick={() => navigate("/report")}>Report</MenuItem>
                 <MenuItem onClick={onSignOut}>Sign Out</MenuItem>
               </MenuList>
