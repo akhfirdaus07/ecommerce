@@ -31,6 +31,7 @@ import {
   PaginationContainer
 } from "@ajna/pagination";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const Products = () => {
   // states
@@ -87,22 +88,44 @@ export const Products = () => {
     setCurrentPage(1);
   };
 
-  const handleSearchChange=(e)=>{
-    setSearch(e.target.value)
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const handleAddToChart = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "You Need to Login First!",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
   };
 
   useEffect(() => {
     fetchProducts(sort, offset, pageSize, filter, search);
     setCurrentPage(currentPage);
-  }, [sort, offset, pageSize, filter,search, currentPage]);
+  }, [sort, offset, pageSize, filter, search, currentPage]);
 
   return (
     <Stack>
-      <HStack align="flex-end" justify="space-between" mt={10} mr={100} ml={100}>
+      <HStack
+        align="flex-end"
+        justify="space-between"
+        mt={10}
+        mr={100}
+        ml={100}
+      >
         <VStack align="flex-start">
           <HStack spacing="35px">
             <Text>Search</Text>
-            <Input placeholder="Search by Product Name" size="md" onChange={handleSearchChange} />
+            <Input
+              placeholder="Search by Product Name"
+              size="md"
+              onChange={handleSearchChange}
+            />
           </HStack>
           <HStack spacing="10px" justify="flex-start">
             <Text>Categories</Text>
@@ -129,7 +152,7 @@ export const Products = () => {
       </HStack>
 
       <Grid
-        gap={3}
+        gap={2}
         mt={10}
         mb={10}
         px={20}
@@ -138,18 +161,19 @@ export const Products = () => {
       >
         {products?.map(
           ({ id, name, price, description, image, User, Category }) => (
-            <Center key={id} p="4" axis="both">
-              <Card maxW="sm">
+            <Center key={id} my="4" axis="both">
+              <Card maxW="sm" variant="outline">
                 <CardBody>
-                  <Center p="4" axis="both">
+                  <Center axis="both">
                     <Image
                       src={image}
                       alt={name}
                       borderRadius="lg"
                       boxSize="200px"
+                      mb="5"
                     />
                   </Center>
-                  <Stack mt="6" spacing="3">
+                  <Stack>
                     <Heading size="md">{name}</Heading>
                     <Text as="i">Category: {Category.name}</Text>
                     <Text>{description}</Text>
@@ -160,12 +184,13 @@ export const Products = () => {
                   </Stack>
                 </CardBody>
                 <Divider />
-                <CardFooter>
+                <CardFooter justify="end">
                   <ButtonGroup spacing="2">
-                    <Button variant="solid" colorScheme="blue">
-                      Buy now
-                    </Button>
-                    <Button variant="ghost" colorScheme="blue">
+                    <Button
+                      variant="solid"
+                      colorScheme="blue"
+                      onClick={handleAddToChart}
+                    >
                       Add to cart
                     </Button>
                   </ButtonGroup>

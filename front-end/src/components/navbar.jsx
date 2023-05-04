@@ -42,7 +42,7 @@ export const Navbar = () => {
         {token ? (
           <>
             <Text as="b" mr="2">
-              Hello, {username}!
+              Hi, {username}!
             </Text>
             <Menu >
               <Avatar
