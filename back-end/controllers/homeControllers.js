@@ -3,6 +3,7 @@ const product = db.Product;
 const category = db.Category;
 const cart = db.Cart;
 const user = db.User;
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   home: async (req, res) => {
@@ -49,17 +50,20 @@ module.exports = {
       const offset = JSON.parse(req.query.offset);
 
       // Cart Controller
-      const username = "FirstPerson";
-      //   const username = localStorage.getItem("username");
+      let decoded=null;
+      const token = req.header("authorization");
+      if(token) decoded = jwt.verify(token, "JWT") || null;
 
       const userData = await user.findOne({
         where: {
-          username,
+          id: decoded.id,
         },
       });
       const cartData = await cart.findAll({
+        include: { all: true },
+        raw: true,
         where: {
-          userId: userData.id,
+          userId: decoded.id,
         },
       });
 

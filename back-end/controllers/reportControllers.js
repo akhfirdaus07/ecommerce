@@ -9,11 +9,28 @@ module.exports = {
   report: async (req, res) => {
     try {
       const username = "FirstPerson";
-      //   const username = localStorage.getItem("username");
+        // const username = localStorage.getItem("username");
+
+      //   if (req.headers && req.headers.authorization) {
+      //     var authorization = req.headers.authorization.split(' ')[1],
+      //         decoded;
+      //     try {
+      //         decoded = jwt.verify(authorization, secret.secretToken);
+      //     } catch (e) {
+      //         return res.status(401).send('unauthorized');
+      //     }
+      // }
+
+
+
+
+
+
 
       const userData = await user.findOne({
         where: {
-          username,
+          // id:decoded.id,
+          username
         },
       });
 
