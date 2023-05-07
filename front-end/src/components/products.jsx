@@ -34,6 +34,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export const Products = () => {
+  const token = localStorage.getItem("token");
   // states
   const [productsTotal, setProductsTotal] = useState();
   const [products, setProducts] = useState([]);
@@ -42,7 +43,11 @@ export const Products = () => {
   const fetchProducts = async (sort, offset, pageSize, filter, search) => {
     await axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}&filter=${filter}&search=${search}`
+        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}&filter=${filter}&search=${search}`, {
+          headers: {
+            Authorization: token
+          }
+         }
       )
       .then((res) => {
         setProductsTotal(res.data.count);
@@ -93,7 +98,7 @@ export const Products = () => {
   };
 
   const handleAddToChart = () => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
     if (!token) {
       Swal.fire({
         icon: "error",

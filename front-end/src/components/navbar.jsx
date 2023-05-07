@@ -41,7 +41,11 @@ export const Navbar = () => {
 
   const fetchCart = async () => {
     await axios
-      .get(`${process.env.REACT_APP_BASE_URL}/home?offset=0&limit=9`)
+      .get(`${process.env.REACT_APP_BASE_URL}/home?offset=0&limit=9`, {
+        headers: {
+          Authorization: token
+        }
+      })
       .then((res) => {
         setCart(res.data.cartData);
       });
@@ -49,7 +53,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     fetchCart();
-  }, [cart]);
+  }, [username]);
 
   return (
     <HStack
@@ -107,15 +111,14 @@ export const Navbar = () => {
                               boxSize="50px"
                             />
                             <Stack>
-                            <Text fontSize="sm">
-                              {productName}
-                            </Text>
-                            <Text fontSize="xs">
-                              x {qty} 
-                            </Text>
+                              <Text fontSize="sm">{productName}</Text>
+                              <Text fontSize="sm">x {qty}</Text>
                             </Stack>
                             <Text fontSize="sm">
-                              Rp{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                              Rp
+                              {price
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                             </Text>
                           </Stack>
                         )
