@@ -53,7 +53,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     fetchCart();
-  }, [username]);
+  }, []);
 
   return (
     <HStack

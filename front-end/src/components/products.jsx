@@ -43,11 +43,12 @@ export const Products = () => {
   const fetchProducts = async (sort, offset, pageSize, filter, search) => {
     await axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}&filter=${filter}&search=${search}`, {
+        `${process.env.REACT_APP_BASE_URL}/home?offset=${offset}&limit=${pageSize}&sort=${sort}&filter=${filter}&search=${search}`,
+        {
           headers: {
             Authorization: token
           }
-         }
+        }
       )
       .then((res) => {
         setProductsTotal(res.data.count);
@@ -97,7 +98,7 @@ export const Products = () => {
     setSearch(e.target.value);
   };
 
-  const handleAddToChart = () => {
+  const handleAddToChart = async (e) => {
     // const token = localStorage.getItem("token");
     if (!token) {
       Swal.fire({
@@ -105,6 +106,30 @@ export const Products = () => {
         title: "You Need to Login First!",
         showConfirmButton: false,
         timer: 1500
+      });
+    } else {
+      const data = {
+        qty: 1,
+        totalAmount: JSON.parse(
+          e.target.parentElement.parentElement.parentElement
+            .querySelector("#price")
+            .innerHTML.substring(2)
+            .replace(/\./g, "")
+        ),
+        productId: JSON.parse(
+          e.target.parentElement.parentElement.parentElement.getAttribute(
+            "productId"
+          )
+        )
+      };
+      console.log(data.qty)
+      console.log(data.totalAmount)
+      console.log(data.productId)
+
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/home`, data, {
+        headers: {
+          Authorization: token
+        }
       });
     }
   };
@@ -167,7 +192,7 @@ export const Products = () => {
         {products?.map(
           ({ id, name, price, description, image, User, Category }) => (
             <Center key={id} my="4" axis="both">
-              <Card maxW="sm" variant="outline">
+              <Card maxW="sm" productId={id} key={id} variant="outline">
                 <CardBody>
                   <Center axis="both">
                     <Image
@@ -182,7 +207,7 @@ export const Products = () => {
                     <Heading size="md">{name}</Heading>
                     <Text as="i">Category: {Category.name}</Text>
                     <Text>{description}</Text>
-                    <Text color="blue.600" fontSize="2xl">
+                    <Text id="price" color="blue.600" fontSize="2xl">
                       Rp{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </Text>
                     <Text as="i">Seller: {User.storeName}</Text>
